@@ -19,6 +19,12 @@ contract CRUD {
         posts[postsCount] = Post(postsCount, _text, msg.sender);
     }
 
+    function deletePost(uint _id) public {
+        require(posts[_id].creator == msg.sender, "Account didn't create post");
+
+        posts[_id] = Post(_id, "", address(0));
+    }
+
     constructor (string memory _text) {
         addPost(_text);
     }
