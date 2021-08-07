@@ -17,7 +17,15 @@ class PostList extends Component {
             return(
               <div className="postTemplate checkbox" key={key}>
                 <label>
-                  <input type="checkbox" />
+                  <input 
+                    type="checkbox"
+                    name={post.id}
+                    ref={(input) => {
+                      this.checkbox = input
+                    }}
+                    onClick={(event) => {
+                      this.props.deletePost(event.target.name)
+                    }} />
                   <span className="content">{post.text}</span>
                 </label>
               </div>

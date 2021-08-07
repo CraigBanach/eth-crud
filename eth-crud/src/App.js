@@ -34,6 +34,14 @@ class App extends Component {
     })
   }
 
+  deletePost(postId) {
+    this.setState({ loading: true })
+    this.state.crud.methods.deletePost(postId).send({ from: this.state.account })
+    .once('receipt', (receipt) => {
+      this.setState({ loading: false })
+    }) 
+  }
+
   constructor(props) {
     super(props)
     this.state = { 
@@ -43,6 +51,7 @@ class App extends Component {
       loading: true
     }
     this.addPost = this.addPost.bind(this)
+    this.deletePost = this.deletePost.bind(this)
   }
 
   render() {
@@ -61,7 +70,7 @@ class App extends Component {
             <main role="main" className="col-lg-12 d-flex justify-content-center">
               { this.state.loading
                 ? <div id="loader" className="text-center"><p className="text-center">Loading...</p></div>
-                : <PostList posts={this.state.posts} addPost={this.addPost} />
+                : <PostList posts={this.state.posts} addPost={this.addPost} deletePost={this.deletePost} />
               }
             </main>
           </div>
