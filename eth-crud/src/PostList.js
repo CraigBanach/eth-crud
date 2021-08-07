@@ -14,25 +14,26 @@ class PostList extends Component {
         </form>
         <ul id="postList" className="list-unstyled">
           { this.props.posts.map((post, key) => {
-            return(
-              <div className="postTemplate checkbox" key={key}>
-                <label>
-                  <input 
-                    type="checkbox"
-                    name={post.id}
-                    ref={(input) => {
-                      this.checkbox = input
-                    }}
-                    onClick={(event) => {
-                      this.props.deletePost(event.target.name)
-                    }} />
-                  <span className="content">{post.text}</span>
-                </label>
-              </div>
-            )
+            if (post.text !== "") {
+              return(
+                <div className="postTemplate checkbox" key={key}>
+                  <label>
+                    <input 
+                      type="checkbox"
+                      name={post.id}
+                      ref={(input) => {
+                        this.checkbox = input
+                      }}
+                      onClick={(event) => {
+                        this.props.deletePost(event.target.name)
+                      }} />
+                    <span className="content">{post.text}</span>
+                  </label>
+                </div>
+              )
+            }
+            return null;
           })}
-        </ul>
-        <ul id="completedPostList" className="list-unstyled">
         </ul>
       </div>
     );
